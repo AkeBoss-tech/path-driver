@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Robot Simulation</title>
+  <style>
+    body {
+      margin: 0;
+      text-align: center;
+    }
+
+    canvas {
+      display: block;
+      outline: 1px solid black;
+    }
+  </style>
+  <!-- Add Bootstrap CSS CDN link -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <canvas id="robotCanvas"></canvas>
+  <div class="container mt-3">
+    <!-- Use Bootstrap classes to style the options div -->
+    <div class="row justify-content-start">
+      <div class="col-md-6 col-lg-4">
+        <div id="options" class="bg-light p-3 rounded">
+          <h3 class="mb-3">Spline Mode:</h3>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="splineMode" value="linear" checked>
+            <label class="form-check-label">Linear</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="splineMode" value="catmull-rom">
+            <label class="form-check-label">Catmull-Rom</label>
+          </div>
+          <h3 class="mt-3">Step Size:</h3>
+          <input type="number" id="stepSize" onchange="stepSize = document.getElementById('stepSize').value" value="5"
+            class="form-control">
+          <button onclick="generateSpline()" class="btn btn-primary mt-3">Generate Spline</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-8">
+        <!-- More options section -->
+        <div id="more-options" class="bg-light p-3 rounded">
+          <h3>Car Properties</h3>
+          <!-- Turning Constant -->
+          <div class="form-group">
+            <label for="turnSlider">Turning Constant (Higher is slower)</label>
+            <input oninput="updateText('turnSlider')" type="range" min="1" max="100" value="20"
+              class="form-control-range" id="turnSlider">
+            <label id="turnSliderText">20</label>
+          </div>
+          <!-- Time -->
+          <div class="form-group">
+            <label for="timeSlider">Time</label>
+            <input oninput="updateText('timeSlider')" type="range" min="0" max="60" value="15"
+              class="form-control-range" id="timeSlider">
+            <label id="timeSliderText">15</label>
+          </div>
+          <!-- Previous Position Storage Length -->
+          <div class="form-group">
+            <label for="pathSlider">Previous Position Storage Length</label>
+            <input oninput="updateText('pathSlider')" type="range" min="0" max="500" value="200"
+              class="form-control-range" id="pathSlider">
+            <label id="pathSliderText">20</label>
+          </div>
+          <!-- Algorithm Stop Turn Constant -->
+          <div class="form-group">
+            <label for="piSlider">Algorithm Stop Turn Constant</label>
+            <input oninput="updateText('piSlider')" type="range" min="5" max="50" value="10" class="form-control-range"
+              id="piSlider">
+            <label id="piSliderText">20</label>
+          </div>
+          <!-- Poor man's distance adder -->
+          <div class="form-group">
+            <label for="aheadSlider">Poor man's distance adder</label>
+            <input oninput="updateText('aheadSlider')" type="range" min="0" max="100" value="30"
+              class="form-control-range" id="aheadSlider">
+            <label id="aheadSliderText">20</label>
+          </div>
+          <!-- Distance Under -->
+          <div class="form-group">
+            <label for="underSlider">Distance Under</label>
+            <input oninput="updateText('underSlider')" type="range" min="0" max="100" value="50"
+              class="form-control-range" id="underSlider">
+            <label id="underSliderText">50</label>
+          </div>
+          <!-- Distance Under Poor man's distance -->
+          <div class="form-group">
+            <label for="poorSlider">Distance Under Poor man's distance</label>
+            <input oninput="updateText('poorSlider')" type="range" min="0" max="50" value="5" class="form-control-range"
+              id="poorSlider">
+            <label id="poorSliderText">5</label>
+          </div>
+          <br>
+          <div id="points"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bootstrap and jQuery CDN scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
