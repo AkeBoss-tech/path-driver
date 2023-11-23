@@ -19,7 +19,7 @@ let segmentThing = 0.01;
 let timerId = null;
 
 // Function to draw the robot at its current position and orientation
-function drawRobot() {
+function drawRobot(lspeed=0, rspeed=0) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.save();
@@ -29,6 +29,13 @@ function drawRobot() {
   ctx.fillRect(-25, -15, 50, 30); // Represent the robot as a rectangle
   ctx.fillStyle = "black";
   ctx.fillRect(12, -5, 10, 10); // Represent the robot's center of rotation
+  // draw a rectangle for the treads
+  // use gradient for the treads depending on speed
+  ctx.fillStyle = "rgb(" + Math.floor(255 * (5 - Math.abs(lspeed))) + ", " + Math.floor(25 * (5 + lspeed)) + ", " + Math.floor(255 * (5 - Math.abs(lspeed))) + ")";
+  ctx.fillRect(-25, -20, 50, 5);
+  ctx.fillStyle = "rgb(" + Math.floor(255 * (5 - Math.abs(rspeed))) + ", " + Math.floor(25 * (5 + rspeed)) + ", " + Math.floor(255 * (5 - Math.abs(rspeed))) + ")";
+  ctx.fillRect(-25, 15, 50, 5);
+  console.log(lspeed, rspeed)
   ctx.restore();
 
   // Draw waypoints
@@ -73,7 +80,7 @@ function moveRobot(leftSpeed, rightSpeed) {
   if (previousPositions.length > document.getElementById("pathSlider").value) {
     previousPositions.shift();
   }
-  drawRobot();
+  drawRobot(leftSpeed, rightSpeed);
 }
 
 function limitAngle(angle) {
@@ -126,7 +133,7 @@ function followSpline() {
 
     moveRobot(lSpeed, rSpeed);
 
-    drawRobot();
+    drawRobot(lSpeed, rSpeed);
     ctx.beginPath();
     ctx.arc(targetX, targetY, 5, 0, 2 * Math.PI);
     ctx.fill();
