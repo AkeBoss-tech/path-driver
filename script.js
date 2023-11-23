@@ -185,12 +185,16 @@ document.addEventListener("keydown", (event) => {
       moveRobot(-stepSize, -stepSize); // Move backward
       break;
     case "Enter":
-      clearTimeout(timerId);
-      followSpline();
+      runRobot();
     default:
       break;
   }
 });
+
+function runRobot() {
+  clearTimeout(timerId);
+  followSpline();
+}
 
 // Prevent default arrow key behavior to avoid scrolling
 document.addEventListener("keydown", (event) => {
